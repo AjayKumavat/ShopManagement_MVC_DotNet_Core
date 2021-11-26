@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shop.Database;
+using Shop.Database.Repositories;
+using Shop.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +29,8 @@ namespace Shop.Core
         {
             services.AddControllersWithViews();
             services.AddDbContext<ShopDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("con")));
+            services.AddScoped<ICategoryRepository, CategoryRepository>()
+                .AddScoped<ICategoryService, CategoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
