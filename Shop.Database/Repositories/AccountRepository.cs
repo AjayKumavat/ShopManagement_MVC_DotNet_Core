@@ -9,15 +9,14 @@ using System.Threading.Tasks;
 
 namespace Shop.Database.Repositories
 {
-    public interface IAccountRepository : IRepository<UserLoginDTO>
+    public interface IAccountRepository : IRepository<User>
     {
-        UserLoginDTO Login(UserLoginDTO user);
-        string Register(User user);
+        bool VerifyCredentials(UserLoginDTO user);
         bool CheckUsernameExists(string username);
         bool CheckMobileNoExists(string mobileNo);
         bool CheckEmailExists(string email);
     }
-    class AccountRepository : Repository<UserLoginDTO>, IAccountRepository
+    class AccountRepository : Repository<User>, IAccountRepository
     {
         public AccountRepository(ShopDbContext context) : base(context)
         {
@@ -57,49 +56,15 @@ namespace Shop.Database.Repositories
             return false;
         }
 
-        public UserLoginDTO Login(UserLoginDTO user)
+        public bool VerifyCredentials(UserLoginDTO user)
         {
             var _user = _context.Users.Where(x => x.UserName == user.UserName && x.Password == user.Password).FirstOrDefault();
 
-            UserLoginDTO userLogin = new UserLoginDTO
+            if(_user != null)
             {
-                UserName = _user.UserName,
-                Password = _user.Password
-            };
-
-            return userLogin;
-        }
-
-        public string Register(User user)
-        {
-            if (CheckUsernameExists(user.UserName))
-            {
-                return "UserName Already Exists!";
+                return true;
             }
-            if (CheckMobileNoExists(user.MobileNo))
-            {
-                return "Mobile No Already Exists!";
-            }
-            if (CheckEmailExists(user.Email))
-            {
-                return "Email Already Exists!";
-            }
-
-            User _user = new User
-            {
-                UserName = user.UserName,
-                Password = user.Password,
-                MobileNo = user.MobileNo,
-                Email = user.Email,
-                CreatedDate = DateTime.Now,
-                ModifiedDate = DateTime.Now,
-                CreatedBy = 0,
-                IsActive = true
-            };
-            _context.Add(_user);
-            _context.SaveChanges();
-
-            return "Registered Successfully!";
+            return false;
         }
     }
 }
