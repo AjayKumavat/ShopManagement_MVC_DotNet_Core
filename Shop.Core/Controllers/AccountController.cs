@@ -56,16 +56,18 @@ namespace Shop.Core.Controllers
         }
 
         [HttpGet]
+        [Route("Register")]
         public IActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("Register")]
         public IActionResult Register(User user)
         {
             ViewData["Message"] = _accountService.Register(user);
-            return View();
+            return View(user);
         }
     }
 }
