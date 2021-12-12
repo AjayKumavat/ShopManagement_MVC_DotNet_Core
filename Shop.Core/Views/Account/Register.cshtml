@@ -1,8 +1,7 @@
 ﻿@model Shop.Models.User
 
 <h2>Register</h2>
-@using (Html.BeginForm())
-{
+<form asp-action="Register" method="post">
     <div class="form-horizontal">
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -25,13 +24,13 @@
                 <input type="submit" value="Proceed" class="btn btn-default" />
             </div>
         </div>
-        <h2>@ViewData["Message"]</h2>
+        <h3>@ViewData["Message"]</h3>
     </div>
-}
-<div>
-    @Html.ActionLink("Log In", "Login")
-</div>
+</form>
+    <div>
+        @Html.ActionLink("Log In", "Login")
+    </div>
 
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

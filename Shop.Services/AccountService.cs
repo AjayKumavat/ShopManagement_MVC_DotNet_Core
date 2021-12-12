@@ -35,9 +35,10 @@ namespace Shop.Services
                 CreatedDate = DateTime.Now,
                 ModifiedDate = DateTime.Now,
                 CreatedBy = 0,
-                IsActive = true
+                IsActive = true,
+                RoleId = 2
             };
-            _accountRepository.Add(user);
+            _accountRepository.Add(_user);
             return user;
         }
 
