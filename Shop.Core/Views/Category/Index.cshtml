@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Category>
+@using Shop.Models
+
+<h2>Category List</h2>
+<div class="panel-body">
+    <div class="btn-group">
+        <a id="addCategory" asp-action="AddCategory" data-target="#modal-action-student" class="btn btn-primary">
+            <i class="glyphicon glyphicon-plus"></i>  Add Student
+        </a>
+    </div>
+    <div class="top-buffer"></div>
+    <table class="table table-bordered table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Created Date</th>
+                <th>Modified Date</th>
+                <th>IsActive</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ModifiedDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IsActive)</td>
+                    <td>
+                        <a id="editStudentModal" asp-action="UpdateCategory" asp-route-id="@item.Id" data-target="#modal-action-student"
+                           class="btn btn-info">
+                            <i class="glyphicon glyphicon-pencil"></i>  Edit
+                        </a>
+                        <a id="deleteStudentModal" asp-action="DeleteCategory" asp-route-id="@item.Id" data-target="#modal-action-student" class="btn btn-danger">
+                            <i class="glyphicon glyphicon-trash"></i>  Delete
+                        </a>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
