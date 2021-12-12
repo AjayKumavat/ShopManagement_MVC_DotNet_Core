@@ -43,7 +43,7 @@ namespace Shop.Services
 
         public Role GetUserRoleByCredential(UserLoginDTO user)
         {
-            return _accountRepository.GetUserRoleByCredential(user);   
+            return _accountRepository.GetUserRoleByCredential(user);
         }
 
         public bool Login(UserLoginDTO user)
