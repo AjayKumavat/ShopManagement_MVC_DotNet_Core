@@ -15,7 +15,7 @@ namespace Shop.Database.Repositories
         bool CheckUsernameExists(string username);
         bool CheckMobileNoExists(string mobileNo);
         bool CheckEmailExists(string email);
-        Role GetUserRoleByCredentials(UserLoginDTO user);
+        Role GetUserRoleByCredential(UserLoginDTO user);
     }
     public class AccountRepository : Repository<User>, IAccountRepository
     {
@@ -57,10 +57,11 @@ namespace Shop.Database.Repositories
             return false;
         }
 
-        public Role GetUserRoleByCredentials(UserLoginDTO user)
+        public Role GetUserRoleByCredential(UserLoginDTO user)
         {
-            User _user = _context.Users.Where(x => x.UserName == user.UserName && x.Password == user.Password).FirstOrDefault();
-            return _context.Roles.Where(x => x.Id == _user.RoleId).FirstOrDefault();
+            var _user = _context.Users.Where(x => x.UserName == user.UserName && x.Password == user.Password).FirstOrDefault();
+            var role = _context.Roles.Where(x => x.Id == _user.RoleId).FirstOrDefault();
+            return role;
         }
 
         public bool VerifyCredentials(UserLoginDTO user)

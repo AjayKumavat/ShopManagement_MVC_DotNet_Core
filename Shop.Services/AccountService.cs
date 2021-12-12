@@ -35,8 +35,7 @@ namespace Shop.Services
                 CreatedDate = DateTime.Now,
                 ModifiedDate = DateTime.Now,
                 CreatedBy = 0,
-                IsActive = true,
-                RoleId = 2
+                IsActive = true
             };
             _accountRepository.Add(user);
             return user;
@@ -44,7 +43,7 @@ namespace Shop.Services
 
         public Role GetUserRoleByCredential(UserLoginDTO user)
         {
-            return _accountRepository.GetUserRoleByCredentials(user);
+            return _accountRepository.GetUserRoleByCredential(user);   
         }
 
         public bool Login(UserLoginDTO user)
