@@ -14,6 +14,7 @@ namespace Shop.Services
         bool Login(UserLoginDTO user);
         User AddUser(User user);
         string Register(User user);
+        Role GetUserRoleByCredential(UserLoginDTO user);
     }
     public class AccountService : IAccountService
     {
@@ -38,6 +39,11 @@ namespace Shop.Services
             };
             _accountRepository.Add(user);
             return user;
+        }
+
+        public Role GetUserRoleByCredential(UserLoginDTO user)
+        {
+            return _accountRepository.GetUserRoleByCredentials(user);
         }
 
         public bool Login(UserLoginDTO user)

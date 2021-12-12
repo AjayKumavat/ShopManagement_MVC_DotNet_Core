@@ -39,8 +39,10 @@ namespace Shop.Core.Controllers
 
             if(_accountService.Login(user))
             {
+                var role = _accountService.GetUserRoleByCredential(user);
                 var identity = new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.Name, user.UserName)
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.Role, role.Name)
                 }, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 var principal = new ClaimsPrincipal(identity);
