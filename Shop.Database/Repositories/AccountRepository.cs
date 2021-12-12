@@ -16,7 +16,7 @@ namespace Shop.Database.Repositories
         bool CheckMobileNoExists(string mobileNo);
         bool CheckEmailExists(string email);
     }
-    class AccountRepository : Repository<User>, IAccountRepository
+    public class AccountRepository : Repository<User>, IAccountRepository
     {
         public AccountRepository(ShopDbContext context) : base(context)
         {

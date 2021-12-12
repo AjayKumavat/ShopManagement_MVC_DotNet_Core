@@ -26,7 +26,15 @@ namespace Shop.Services
 
         public Category AddCategory(Category category)
         {
-            _categoryRepository.Add(category);
+            Category _category = new Category
+            {
+                Name = category.Name,
+                CreatedBy = category.CreatedBy,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                IsActive = category.IsActive
+            };
+            _categoryRepository.Add(_category);
             return category;
         }
 

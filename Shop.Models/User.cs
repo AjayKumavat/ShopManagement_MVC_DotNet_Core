@@ -12,5 +12,6 @@ namespace Shop.Models
         public string Password { get; set; }
         public string MobileNo { get; set; }
         public string Email { get; set; }
+        public int RoleId { get; set; }
     }
 }

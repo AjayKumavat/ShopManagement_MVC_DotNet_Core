@@ -18,52 +18,32 @@ namespace Shop.Core.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var categoryList = _categoryService.GetCategory();
-            return View(await categoryList);
-        }
-
-        [HttpGet]
-        [Route("Get")]
-        [Produces(typeof(IEnumerable<Category>))]
-        public async Task<IActionResult> GetCategory()
-        {
-            var category = await _categoryService.GetCategory();
-            return View(category);
-        }
-
-        [HttpGet]
-        [Route("GetById/{id}")]
-        [Produces(typeof(Category))]
-        public async Task<IActionResult> GetCategoryById(int id)
-        {
-            var category = await _categoryService.GetCategoryById(id);
-            return View(category);
+            var categoryList = await _categoryService.GetCategory();
+            return View(categoryList);
         }
 
         [HttpGet]
         [Route("Add")]
-        [Produces(typeof(Category))]
         public IActionResult AddCategory()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("Add/{id}")]
-        [Produces(typeof(Category))]
+        [Route("Add")]
         public IActionResult AddCategory(Category category)
         {
             if (ModelState.IsValid)
             {
                 var _category = _categoryService.AddCategory(category);
-                return View(_category);
+                //return View(_category);
+                return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         [Route("Update")]
-        [Produces(typeof(Category))]
         public IActionResult UpdateCategory()
         {
             return View();
@@ -71,7 +51,6 @@ namespace Shop.Core.Controllers
 
         [HttpPut]
         [Route("Update")]
-        [Produces(typeof(Category))]
         public async Task<IActionResult> UpdateCategory(Category category)
         {
             if (ModelState.IsValid)
@@ -83,20 +62,23 @@ namespace Shop.Core.Controllers
         }
 
         [HttpGet]
-        [Route("Delete")]
-        [Produces(typeof(Category))]
-        public IActionResult DeleteCategory()
-        {
-            return View();
-        }
-
-        [HttpDelete]
         [Route("Delete/{id}")]
-        [Produces(typeof(bool))]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            bool isDeleted = await _categoryService.DeleteCategory(id);
-            return RedirectToAction("Index");
+            var category = await _categoryService.GetCategoryById(id);
+            return View(category);
+        }
+
+        [HttpPost]
+        [Route("Delete/{id}")]
+        public async Task<IActionResult> DeleteCategory(Category category)
+        {
+            bool isDeleted = await _categoryService.DeleteCategory(category.Id);
+            if(isDeleted == true)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
         }
     }
 }
